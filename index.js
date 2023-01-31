@@ -4,6 +4,8 @@ const StudentRouter = require('./routes/crud')
 const TeacherRouter = require('./routes/teacher_route')
 const cors = require('cors')
 
+const Student = require('../models/Student')
+
 connectToMongo();
 
 
@@ -21,20 +23,21 @@ app.use("/test",(req,res)=>{
   res.send("hello world")
 })
 
+app.use("/student", async (req, res) => {
+  const student = await Student.find();
+  try {
+      res.json(student)
+  }
+  catch (error) {
+      console.error(error.message);
+      res.status(500).send("internal some Error occured");
+  }
+})
+
 app.use('/api/student',StudentRouter)
 
 app.use('/api/teacher',TeacherRouter)
 
-// console.log(process.env)
-
-if(process.env.NODE_ENV=='production'){
-  const path = require('path')
-
-  app.get('/',(req,res)=>{
-    app.use(express.static(path.resolve(__dirname,'frontend','build')))
-    res.sendFile(path.resolve(__dirname,'frontend','build','index.html'))
-  })
-}
 
 
 app.listen(port, () => {
