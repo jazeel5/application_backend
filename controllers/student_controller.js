@@ -34,8 +34,8 @@ const Insert = async (req, res) => {
 
 
 const Get_Student = async (req, res) => {
-    const student = await Student.find();
     try {
+        const student = await Student.find();
         res.json(student)
     }
     catch (error) {

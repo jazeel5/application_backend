@@ -30,5 +30,5 @@ router.put('/update_student/:id', Update)
 // api GET SINGLE STUDENT --------------------------------------------------------------
 router.get('/get_single_student/:id', Get_Single_Student)
 
-
+  
 module.exports = router
